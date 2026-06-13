@@ -1,0 +1,10 @@
+{% extends 'hostel/base.html' %}
+{% block content %}
+<h2>Student Login</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+</form>
+<p>New student? <a href="{% url 'student_signup' %}">Sign Up here</a></p>
+{% endblock %}

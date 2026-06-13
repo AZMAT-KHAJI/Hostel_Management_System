@@ -1,0 +1,66 @@
+{% extends 'hostel/base.html' %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+
+<h3>Empty Rooms</h3>
+<table border="1">
+    <tr><th>Room Number</th><th>Capacity</th><th>Occupied</th></tr>
+    {% for room in empty_rooms %}
+    <tr>
+        <td>{{ room.number }}</td>
+        <td>{{ room.capacity }}</td>
+        <td>{{ room.occupied }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="3">No empty rooms.</td></tr>
+    {% endfor %}
+</table>
+
+<h3>Allocated Rooms</h3>
+<table border="1">
+    <tr><th>Room Number</th><th>Student</th><th>Allot Date</th></tr>
+    {% for room in allocated_rooms %}
+    {% for allot in room.roomallotment_set.all %}
+    <tr>
+        <td>{{ room.number }}</td>
+        <td>{{ allot.student.user.username }}</td>
+        <td>{{ allot.allot_date }}</td>
+    </tr>
+    {% endfor %}
+    {% empty %}
+    <tr><td colspan="3">No allocated rooms.</td></tr>
+    {% endfor %}
+</table>
+
+<h3>Students</h3>
+<table border="1">
+    <tr><th>Name</th><th>USN</th><th>Phone</th><th>Department</th><th>Year</th></tr>
+    {% for student in students %}
+    <tr>
+        <td>{{ student.user.username }}</td>
+        <td>{{ student.usn }}</td>
+        <td>{{ student.phone }}</td>
+        <td>{{ student.department }}</td>
+        <td>{{ student.year }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5">No registered students.</td></tr>
+    {% endfor %}
+</table>
+
+<h3>Complaints</h3>
+<table border="1">
+    <tr><th>Student</th><th>Title</th><th>Details</th><th>Date</th><th>Resolved</th></tr>
+    {% for complaint in complaints %}
+    <tr>
+        <td>{{ complaint.student.user.username }}</td>
+        <td>{{ complaint.title }}</td>
+        <td>{{ complaint.details }}</td>
+        <td>{{ complaint.date }}</td>
+        <td>{{ complaint.resolved }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5">No complaints.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

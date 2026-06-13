@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title style="background-color: azure;">Hostel Management</title>
+    <link rel="stylesheet" href="{% static 'hostel/css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Hostel Management System</h1>
+        <nav>
+            {% if user.is_authenticated %}
+                <a href="{% url 'student_dashboard' %}">Student Dashboard</a>
+                <a href="{% url 'admin_dashboard' %}">Admin Dashboard</a>
+                <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'student_login' %}">Student Login</a>
+                <a href="{% url 'student_signup' %}">Student Signup</a>
+                <a href="{% url 'admin_login' %}">Admin Login</a>
+            {% endif %}
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

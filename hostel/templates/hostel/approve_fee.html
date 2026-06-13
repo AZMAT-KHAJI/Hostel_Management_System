@@ -1,0 +1,16 @@
+{% extends 'hostel/base.html' %}
+{% block content %}
+<h2>Approve Fee Payment</h2>
+
+<p><strong>Student:</strong> {{ fee.student.user.username }}</p>
+<p><strong>Amount:</strong> ₹{{ fee.amount }}</p>
+<p><strong>Date:</strong> {{ fee.date }}</p>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Approve & Generate Receipt</button>
+</form>
+
+<a href="{% url 'admin_dashboard' %}">Back to Dashboard</a>
+{% endblock %}

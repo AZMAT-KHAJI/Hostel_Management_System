@@ -1,0 +1,15 @@
+{% extends 'hostel/base.html' %}
+{% block title %}Complaint Form{% endblock %}
+{% block content %}
+<h2>Submit Complaint</h2>
+<form method="POST">
+    {% csrf_token %}
+    <label>Roll Number:</label>
+    <input type="text" name="roll_number" required>
+    <label>Title:</label>
+    <input type="text" name="title" required>
+    <label>Details:</label>
+    <textarea name="details" rows="5" required></textarea>
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends 'hostel/base.html' %}
+{% block content %}
+<h2>Welcome {{ student.user.username }}</h2>
+
+
+
+
+<!-- 3-dot menu slightly inset from top-right -->
+<div style="position: relative; height: 50px;"> <!-- container with some height -->
+    <button class="dropbtn" onclick="toggleDropdown()" 
+        style="background:none; border:none; font-size:20px; cursor:pointer; position:absolute; top:10px; right:20px;">⋮</button>
+    <div id="myDropdown" class="dropdown-content">
+        <a href="{% url 'submit_complaint' %}">Submit Complaint</a>
+        <a href="{% url 'pay_fee' %}">Pay Fee</a>
+        <a href="{% url 'room_change_request' %}">Request / Change Room</a>
+        <a href="{% url 'student_profile' %}">My Profile</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+</div>
+
+<style>
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 20px; /* matches button right offset */
+    top: 35px;   /* dropdown below button */
+    background-color: #fff;
+    min-width: 150px;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 4px;
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 8px 12px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+}
+
+.dropdown-content a:hover {
+    background-color: #f0f0f0;
+}
+
+.show {
+    display: block;
+}
+</style>
+
+<script>
+function toggleDropdown() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        for (var i=0; i<dropdowns.length; i++) {
+            dropdowns[i].classList.remove('show');
+        }
+    }
+}
+</script>
+
+
+
+
+<h3>Recent Complaints</h3>
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Title</th>
+        <th>Details</th>
+        <th>Date</th>
+        <th>Resolved</th>
+    </tr>
+    {% for complaint in complaints %}
+    <tr>
+        <td>{{ complaint.title }}</td>
+        <td>{{ complaint.details }}</td>
+        <td>{{ complaint.date }}</td>
+        <td>{{ complaint.resolved }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4">No complaints submitted.</td></tr>
+    {% endfor %}
+</table>
+
+<h3>Fee Payment History</h3>
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Amount</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Receipt</th>
+    </tr>
+    {% for fee in fees %}
+    <tr>
+        <td>{{ fee.amount }}</td>
+        <td>{{ fee.date }}</td>
+        <td>{{ fee.status }}</td>
+        <td>
+    {% if fee.receipt_number %}
+        <a href="{% url 'view_receipt' fee.id %}">{{ fee.receipt_number }}</a>
+    {% else %}
+        Not Available
+    {% endif %}
+</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="3">No fee payments.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

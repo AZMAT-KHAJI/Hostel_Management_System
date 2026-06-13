@@ -1,0 +1,18 @@
+{% extends 'hostel/base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2>My Profile</h2>
+  <hr>
+  <h4>Student Information</h4>
+  <p><strong>Username:</strong> {{ student.user.username }}</p>
+<p><strong>Email:</strong> {{ student.user.email }}</p>
+  <p><strong>Roll No:</strong> {{ student.usn }}</p>
+  <p><strong>Department:</strong> {{ student.department }}</p>
+  <p><strong>Year:</strong> {{ student.year }}</p>
+  <p><strong>Contact:</strong> {{ student.phone }}</p>
+  <p><strong>Address:</strong> {{ student.address }}</p>
+
+</hr>
+  
+</div>
+{% endblock %}
